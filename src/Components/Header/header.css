@@ -1,0 +1,369 @@
+/* Header CSS for CharmCrafts */
+:root {
+    --primary: #a06cd5;
+    --primary-dark: #7a4eb5;
+    --secondary: #62b6cb;
+    --accent: #ff7e67;
+    --light: #f9f7fe;
+    --dark: #333333;
+    --gray: #6c757d;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --font-main: 'Montserrat', sans-serif;
+    --font-accent: 'Playfair Display', serif;
+  }
+  
+  .header {
+    background-color: white;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+  }
+  
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+  }
+  
+  /* Logo Styling */
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  
+  .logo h1 {
+    font-family: var(--font-accent);
+    color: var(--primary-dark);
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  .logo .tagline {
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    color: var(--gray);
+    font-style: italic;
+  }
+  
+  /* Navigation Menu */
+  .navbar {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .nav-item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    color: var(--dark);
+    text-decoration: none;
+    padding: 0 1.2rem;
+    font-family: var(--font-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    height: 80px;
+    line-height: 80px;
+  }
+  
+  .nav-link .icon {
+    margin-right: 6px;
+  }
+  
+  .nav-link:hover, 
+  .nav-link:focus {
+    color: var(--primary);
+  }
+  
+  .dropdown-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-toggle::after {
+    content: '▼';
+    font-size: 0.7rem;
+    margin-left: 6px;
+  }
+  
+  /* Dropdown Menu */
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    list-style: none;
+    padding: 0.5rem 0;
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  .dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .dropdown-menu li a {
+    display: block;
+    padding: 0.7rem 1.2rem;
+    color: var(--dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+  }
+  
+  .dropdown-menu li a:hover {
+    background-color: var(--light);
+    color: var(--primary);
+  }
+  
+  /* Navigation Actions (Profile & Cart) */
+  .nav-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-container {
+    position: relative;
+    margin-right: 1rem;
+  }
+  
+  .profile-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    color: var(--dark);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .profile-button:hover {
+    color: var(--primary);
+  }
+  
+  .profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    padding: 0.5rem 0;
+    min-width: 140px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  .profile-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .profile-dropdown a,
+  .profile-dropdown button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.7rem 1.2rem;
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-main);
+    transition: all 0.2s ease;
+  }
+  
+  .profile-dropdown a:hover,
+  .profile-dropdown button:hover {
+    background-color: var(--light);
+    color: var(--primary);
+  }
+  
+  /* Cart Button */
+  .cart-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--dark);
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .cart-button:hover {
+    color: var(--primary);
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: 0;
+    right: -5px;
+    background-color: var(--accent);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-main);
+  }
+  
+  /* Add to Cart Button - For product pages */
+  .add-to-cart {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 6px rgba(255, 126, 103, 0.3);
+  }
+  
+  .add-to-cart:hover {
+    background-color: #ff6b52;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 126, 103, 0.4);
+  }
+  
+  .add-to-cart .icon {
+    margin-right: 8px;
+  }
+  
+  /* Mobile Menu Toggle - For responsive design */
+  .mobile-toggle {
+    display: none;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 992px) {
+    .header-container {
+      height: 70px;
+    }
+    
+    .nav-link {
+      height: 70px;
+      line-height: 70px;
+      padding: 0 1rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mobile-toggle {
+      display: block;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+    }
+    
+    .navbar {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: white;
+      box-shadow: var(--shadow);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+    
+    .navbar.open {
+      max-height: 500px;
+    }
+    
+    .nav-menu {
+      flex-direction: column;
+      padding: 1rem 0;
+    }
+    
+    .nav-item {
+      width: 100%;
+    }
+    
+    .nav-link {
+      height: auto;
+      line-height: normal;
+      padding: 1rem;
+    }
+    
+    .dropdown-menu {
+      position: static;
+      box-shadow: none;
+      transform: none;
+      padding-left: 1rem;
+    }
+    
+    .dropdown-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+    
+    .logo {
+      flex: 1;
+    }
+  }
