@@ -1,482 +1,501 @@
-/* home.css */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@400;700&display=swap');
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
-/* Base Styles & Variables */
-:root {
-    --primary: #a06cd5;
-    --primary-dark: #7a4eb5;
-    --secondary: #62b6cb;
-    --accent: #ff7e67;
-    --light: #f9f7fe;
-    --dark: #333333;
-    --gray: #6c757d;
-    --font-main: 'Montserrat', sans-serif;
-    --font-accent: 'Playfair Display', serif;
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background-color: #faf9f6;
+}
+
+/* Typography */
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(to right, #e6a954, #d47d4a);
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #444;
+}
+
+p {
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Layout */
+.home section {
+  padding: 5rem 8%;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), url('https://source.unsplash.com/featured/?craft,handmade') no-repeat center center;
+  background-size: cover;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  background: linear-gradient(to right, #e6a954, #d47d4a);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 15px rgba(214, 136, 50, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(214, 136, 50, 0.4);
+}
+
+/* Collections Section */
+.collections {
+  background-color: #fff;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.collection-item {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  padding-bottom: 1.5rem;
+}
+
+.collection-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.collection-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 1rem;
+}
+
+.collection-item h3 {
+  color: #333;
+}
+
+.collection-item p {
+  padding: 0 1rem;
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.secondary-button {
+  background-color: transparent;
+  color: #d47d4a;
+  border: 2px solid #d47d4a;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+}
+
+.secondary-button:hover {
+  background-color: #d47d4a;
+  color: white;
+}
+
+/* Collection Images */
+.miniatures {
+  background-image: url('https://source.unsplash.com/featured/?miniature,craft');
+}
+
+.keychains {
+  background-image: url('https://source.unsplash.com/featured/?keychain,handmade');
+}
+
+.jewelry {
+  background-image: url('https://source.unsplash.com/featured/?jewelry,handmade');
+}
+
+.custom {
+  background-image: url('https://source.unsplash.com/featured/?custom,craft');
+}
+
+/* Behind the Scenes */
+.behind-scenes {
+  background-color: #f7f5f0;
+}
+
+.crafting-story {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.story-media {
+  flex: 1;
+  min-width: 300px;
+}
+
+.video-placeholder {
+  background-image: url('https://source.unsplash.com/featured/?artist,crafting');
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.story-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.process-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.process-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.process-image:hover {
+  transform: scale(1.05);
+}
+
+.process1 {
+  background-image: url('https://source.unsplash.com/featured/?craft,making');
+}
+
+.process2 {
+  background-image: url('https://source.unsplash.com/featured/?handmade,process');
+}
+
+.process3 {
+  background-image: url('https://source.unsplash.com/featured/?crafting,tools');
+}
+
+/* Testimonials */
+.testimonials {
+  background-color: #fff;
+}
+
+.testimonial-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.testimonial {
+  background-color: #faf9f6;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.testimonial:hover {
+  transform: translateY(-5px);
+}
+
+.customer-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid #e6a954;
+}
+
+.customer1 {
+  background-image: url('https://source.unsplash.com/featured/?woman,portrait');
+}
+
+.customer2 {
+  background-image: url('https://source.unsplash.com/featured/?man,portrait');
+}
+
+.customer3 {
+  background-image: url('https://source.unsplash.com/featured/?woman,face');
+}
+
+.stars {
+  color: #e6a954;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.review-text {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.customer-name {
+  font-weight: 600;
+  color: #d47d4a;
+}
+
+/* Newsletter */
+.newsletter {
+  background: linear-gradient(to right, #e6a954, #d47d4a);
+  color: white;
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.newsletter h2 {
+  color: white;
+}
+
+.newsletter h2::after {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.newsletter p {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+}
+
+.subscribe-form {
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.subscribe-form input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 30px 0 0 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+}
+
+.subscribe-form .cta-button {
+  border-radius: 0 30px 30px 0;
+  padding: 1rem 1.5rem;
+  background: #333;
+  box-shadow: none;
+}
+
+/* Instagram Feed */
+.instagram-feed {
+  text-align: center;
+  background-color: #fff;
+}
+
+.instagram-handle {
+  color: #d47d4a;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.instagram-post {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+
+.instagram-post:hover {
+  transform: scale(1.05);
+}
+
+.post1 {
+  background-image: url('https://source.unsplash.com/featured/?craft,1');
+}
+
+.post2 {
+  background-image: url('https://source.unsplash.com/featured/?handmade,2');
+}
+
+.post3 {
+  background-image: url('https://source.unsplash.com/featured/?miniature,3');
+}
+
+.post4 {
+  background-image: url('https://source.unsplash.com/featured/?jewelry,4');
+}
+
+.post5 {
+  background-image: url('https://source.unsplash.com/featured/?keychain,5');
+}
+
+.post6 {
+  background-image: url('https://source.unsplash.com/featured/?craft,6');
+}
+
+/* FAQ */
+.faq {
+  background-color: #f7f5f0;
+}
+
+.faq-item {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.faq-item:hover {
+  transform: translateY(-5px);
+}
+
+.faq-item h3 {
+  color: #d47d4a;
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    height: 80vh;
   }
-  
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: var(--font-main);
-    line-height: 1.6;
-    color: var(--dark);
-    background-color: var(--light);
-  }
-  
-  h1, h2, h3 {
-    font-family: var(--font-accent);
-    margin-bottom: 1rem;
-  }
-  
+
   h1 {
     font-size: 2.5rem;
   }
-  
+
   h2 {
     font-size: 2rem;
-    text-align: center;
-    position: relative;
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
   }
-  
-  h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--accent);
+
+  .home section {
+    padding: 3rem 5%;
   }
-  
-  h3 {
-    font-size: 1.5rem;
-  }
-  
-  button {
-    cursor: pointer;
-    font-family: var(--font-main);
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-    border-radius: 4px;
-  }
-  
-  section {
-    padding: 4rem 2rem;
-  }
-  
-  /* Hero Section */
-  .hero {
-    height: 80vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1558882224-dda166733046');
-    background-size: cover;
-    background-position: center;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-  
-  .hero-content {
-    max-width: 800px;
-    padding: 2rem;
-  }
-  
-  .hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .hero p {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
-  }
-  
-  .cta-button {
-    background-color: var(--accent);
-    color: white;
-    padding: 0.75rem 2rem;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .cta-button:hover {
-    background-color: #ff6b52;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .secondary-button {
-    background-color: transparent;
-    color: var(--primary);
-    padding: 0.5rem 1.5rem;
-    border: 2px solid var(--primary);
-    font-size: 0.9rem;
-  }
-  
-  .secondary-button:hover {
-    background-color: var(--primary);
-    color: white;
-  }
-  
-  /* Collections Section */
-  .collections {
-    background-color: white;
-  }
-  
-  .collection-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  
-  .collection-item {
-    background-color: var(--light);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .collection-item:hover {
-    transform: translateY(-8px);
-  }
-  
-  .collection-image {
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .collection-item h3 {
-    margin-top: 1rem;
-    color: var(--primary-dark);
-  }
-  
-  .collection-item p {
-    color: var(--gray);
-    padding: 0 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .collection-item button {
-    margin: 1rem 0 1.5rem 0;
-  }
-  
-  .miniatures {
-    background-image: url('https://images.unsplash.com/photo-1618897996318-5a901fa6ca71');
-  }
-  
-  .keychains {
-    background-image: url('https://images.unsplash.com/photo-1581541236899-ff6bb27d3160');
-  }
-  
-  .jewelry {
-    background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338');
-  }
-  
-  .custom {
-    background-image: url('https://images.unsplash.com/photo-1566003831726-b830576b7311');
-  }
-  
-  /* Behind the Scenes Section */
-  .behind-scenes {
-    background-color: #f0ebf8;
-  }
-  
+
   .crafting-story {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    flex-direction: column;
     gap: 2rem;
-    margin-bottom: 3rem;
   }
-  
-  .story-media {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+  .story-media, .story-content {
+    flex: 1 1 100%;
   }
-  
-  .video-placeholder {
-    width: 100%;
-    height: 300px;
-    background-color: var(--secondary);
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    position: relative;
-  }
-  
-  .video-placeholder::after {
-    content: '▶';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    color: white;
-  }
-  
-  .story-content p {
-    margin-bottom: 1rem;
-  }
-  
-  .process-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-  }
-  
-  .process-image {
-    height: 180px;
-    border-radius: 8px;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .process1 {
-    background-image: url('https://images.unsplash.com/photo-1544819679-15b11a72c3bd');
-  }
-  
-  .process2 {
-    background-image: url('https://images.unsplash.com/photo-1525909002-1b05e0c869d8');
-  }
-  
-  .process3 {
-    background-image: url('https://images.unsplash.com/photo-1510832198440-a52376950479');
-  }
-  
-  /* Testimonials Section */
-  .testimonials {
-    background-color: white;
-  }
-  
-  .testimonial-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin: 0 auto;
-  }
-  
-  .testimonial {
-    background-color: var(--light);
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .customer-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin: 0 auto 1rem;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  .customer1 {
-    background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330');
-  }
-  
-  .customer2 {
-    background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d');
-  }
-  
-  .customer3 {
-    background-image: url('https://images.unsplash.com/photo-1573140247632-f8fd74997d5c');
-  }
-  
-  .stars {
-    color: gold;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .review-text {
-    font-style: italic;
-    margin-bottom: 1rem;
-  }
-  
-  .customer-name {
-    font-weight: 600;
-    color: var(--gray);
-  }
-  
-  /* Newsletter Section */
-  .newsletter {
-    background-color: var(--primary);
-    color: white;
-    text-align: center;
-    padding: 4rem 1rem;
-  }
-  
-  .newsletter h2::after {
-    background-color: white;
-  }
-  
+
   .subscribe-form {
-    display: flex;
-    max-width: 500px;
-    margin: 2rem auto 0;
+    flex-direction: column;
+    align-items: center;
   }
-  
+
   .subscribe-form input {
-    flex-grow: 1;
-    padding: 0.75rem 1rem;
-    border: none;
-    border-radius: 4px 0 0 4px;
-    font-size: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 30px;
   }
-  
-  .subscribe-form button {
-    border-radius: 0 4px 4px 0;
-    background-color: var(--accent);
+
+  .subscribe-form .cta-button {
+    width: 100%;
+    border-radius: 30px;
   }
-  
-  /* Instagram Feed */
-  .instagram-feed {
-    text-align: center;
-    background-color: white;
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
   }
-  
-  .instagram-handle {
-    color: var(--primary);
-    font-weight: 600;
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+
+  h2 {
+    font-size: 1.75rem;
   }
-  
-  .instagram-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-  }
-  
-  .instagram-post {
-    height: 150px;
-    background-size: cover;
-    background-position: center;
-    transition: all 0.3s ease;
-  }
-  
-  .instagram-post:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-  
-  .post1 {
-    background-image: url('https://images.unsplash.com/photo-1531913547242-978b2e5ba621');
-  }
-  
-  .post2 {
-    background-image: url('https://images.unsplash.com/photo-1572375721046-5caf0bade3df');
-  }
-  
-  .post3 {
-    background-image: url('https://images.unsplash.com/photo-1558882224-dda166733046');
-  }
-  
-  .post4 {
-    background-image: url('https://images.unsplash.com/photo-1505330622279-bf7d7fc918f4');
-  }
-  
-  .post5 {
-    background-image: url('https://images.unsplash.com/photo-1510832931477-a0e593c990d1');
-  }
-  
-  .post6 {
-    background-image: url('https://images.unsplash.com/photo-1469395446868-fb6a048d5ca3');
-  }
-  
-  /* FAQ Section */
-  .faq {
-    background-color: #f0ebf8;
-  }
-  
-  .faq-item {
-    max-width: 800px;
-    margin: 0 auto 1.5rem;
-    background-color: white;
+
+  .hero-content {
     padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
   }
-  
-  .faq-item h3 {
-    color: var(--primary-dark);
-    margin-bottom: 0.5rem;
+
+  .collection-grid, .testimonial-container, .process-gallery {
+    grid-template-columns: 1fr;
   }
-  
-  /* Media Queries */
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 2rem;
-    }
-    
-    h2 {
-      font-size: 1.8rem;
-    }
-    
-    section {
-      padding: 3rem 1rem;
-    }
-    
-    .hero {
-      height: 60vh;
-    }
-    
-    .subscribe-form {
-      flex-direction: column;
-    }
-    
-    .subscribe-form input {
-      border-radius: 4px;
-      margin-bottom: 1rem;
-    }
-    
-    .subscribe-form button {
-      border-radius: 4px;
-    }
+
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  /* Animations */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .collection-item, .testimonial, .faq-item {
-    animation: fadeIn 0.6s ease forwards;
-  }
-  
-  .collection-item:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  
-  .collection-item:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-  
-  .collection-item:nth-child(4) {
-    animation-delay: 0.6s;
-  }
-  
-  .testimonial:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  
-  .testimonial:nth-child(3) {
-    animation-delay: 0.4s;
-  }
+}

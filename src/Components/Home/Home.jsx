@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './home.css';
+import Axios from "../../../Axios/Axios"
+
 
 function Home() {
+
+ 
   return (
     <div className="home">
       {/* Hero Section */}

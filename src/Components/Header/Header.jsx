@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import './header.css';
 
 function Header() {
@@ -6,16 +7,55 @@ function Header() {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Toggle for demo
   const [cartCount, setCartCount] = useState(2); // Example cart count
+  const [mobileMenuActive, setMobileMenuActive] = useState(false);
 
-  const toggleShopDropdown = () => {
+  const toggleShopDropdown = (e) => {
+    e.stopPropagation();
     setShowShopDropdown(!showShopDropdown);
     if (showProfileDropdown) setShowProfileDropdown(false);
   };
 
-  const toggleProfileDropdown = () => {
+  const toggleProfileDropdown = (e) => {
+    e.stopPropagation();
     setShowProfileDropdown(!showProfileDropdown);
     if (showShopDropdown) setShowShopDropdown(false);
   };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuActive(!mobileMenuActive);
+    // Close dropdowns when toggling mobile menu
+    setShowShopDropdown(false);
+    setShowProfileDropdown(false);
+  };
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const closeDropdowns = (e) => {
+      if (!e.target.closest('.dropdown') && !e.target.closest('.profile-container')) {
+        setShowShopDropdown(false);
+        setShowProfileDropdown(false);
+      }
+    };
+    
+    document.addEventListener('click', closeDropdowns);
+    
+    return () => {
+      document.removeEventListener('click', closeDropdowns);
+    };
+  }, []);
+
+  // Prevent scrolling when mobile menu is active
+  useEffect(() => {
+    if (mobileMenuActive) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [mobileMenuActive]);
 
   return (
     <header className="header">
@@ -25,19 +65,19 @@ function Header() {
           <span className="tagline">Handmade with love</span>
         </div>
 
-        <nav className="navbar">
+        <div className={`overlay ${mobileMenuActive ? 'active' : ''}`} onClick={toggleMobileMenu}></div>
+        
+        <nav className={`navbar ${mobileMenuActive ? 'active' : ''}`}>
           <ul className="nav-menu">
             <li className="nav-item">
-              <a href="/" className="nav-link">
-                <span className="icon">🏠</span> Home
-              </a>
+              <a href="/" className="nav-link">Home</a>
             </li>
             <li className="nav-item dropdown">
               <button 
-                className="nav-link dropdown-toggle" 
+                className="dropdown-toggle" 
                 onClick={toggleShopDropdown}
               >
-                <span className="icon">🛍️</span> Shop
+                Shop
               </button>
               <ul className={`dropdown-menu ${showShopDropdown ? 'show' : ''}`}>
                 <li><a href="/shop/miniatures">Miniatures</a></li>
@@ -47,20 +87,14 @@ function Header() {
               </ul>
             </li>
             <li className="nav-item">
-              <a href="/about" className="nav-link">
-                <span className="icon">🎨</span> About Us
-              </a>
+              <a href="/about" className="nav-link">About Us</a>
             </li>
             <li className="nav-item">
-              <a href="/contact" className="nav-link">
-                <span className="icon">📩</span> Contact
-              </a>
+              <a href="/contact" className="nav-link">Contact</a>
             </li>
             {isLoggedIn && (
               <li className="nav-item">
-                <a href="/orders" className="nav-link">
-                  <span className="icon">📦</span> My Orders
-                </a>
+                <a href="/orders" className="nav-link">My Orders</a>
               </li>
             )}
           </ul>
@@ -72,30 +106,38 @@ function Header() {
               className="profile-button" 
               onClick={toggleProfileDropdown}
             >
-              <span className="icon">{isLoggedIn ? '👤' : '🔐'}</span>
               {isLoggedIn ? 'Profile' : 'Login'}
             </button>
             <div className={`profile-dropdown ${showProfileDropdown ? 'show' : ''}`}>
               {isLoggedIn ? (
                 <>
                   <a href="/profile">My Profile</a>
-                  <a href="/settings">Settings</a>
-                  <button onClick={() => setIsLoggedIn(false)}>Logout</button>
+                  <a href="/settings">Account Settings</a>
+                  <button onClick={() => setIsLoggedIn(false)}>Sign Out</button>
                 </>
               ) : (
                 <>
-                  <a href="/login">Login</a>
-                  <a href="/register">Register</a>
+                  <Link to="/login">Sign In</Link>
+                  <Link to="/register">Create Account</Link>
                 </>
               )}
             </div>
           </div>
 
           <a href="/cart" className="cart-button">
-            <span className="icon">🛒</span>
+            Cart
             <span className="cart-count">{cartCount}</span>
           </a>
         </div>
+        
+        <button 
+          className={`hamburger ${mobileMenuActive ? 'active' : ''}`} 
+          onClick={toggleMobileMenu}
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
       </div>
     </header>
   );

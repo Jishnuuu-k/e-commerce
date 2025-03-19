@@ -1,14 +1,17 @@
 import React from 'react'
-import Header from './Components/Header/Header'
-import Home from './Components/Home/Home'
-import Footer from './Components/Footer/Footer'
+import { Routes, Route } from "react-router-dom"
+import Homee from './Pages/Homee'
+import Regitrationn from './Pages/Regitrationn'
+import Loginn from './Pages/Loginn'
 
 function App() {
   return (
     <div>
-      <Header/>
-      <Home/>
-      <Footer/>
+      <Routes>
+        <Route path="/" element={ <Homee/> } />
+        <Route path="register" element={ <Regitrationn/> } />
+        <Route path="login" element={ <Loginn/> } />
+      </Routes>
     </div>
   )
 }
