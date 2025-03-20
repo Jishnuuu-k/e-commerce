@@ -1,139 +1,225 @@
 import React, { useState, useEffect } from 'react';
-import './home.css';
-import Axios from "../../../Axios/Axios"
-
+import { Link } from 'react-router-dom';
+import { FaArrowRight, FaShoppingBag, FaInfoCircle, FaEnvelope, FaInstagram, FaWhatsapp, FaFacebook } from 'react-icons/fa';
+import "./Home.css";
 
 function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isVisible, setIsVisible] = useState({
+    hero: false,
+    shop: false,
+    about: false,
+    contact: false
+  });
 
- 
+  // Images for the slideshow
+  const slideImages = [
+    "https://via.placeholder.com/1920x1080.png?text=Trendy+Fashion+Collection",
+    "https://via.placeholder.com/1920x1080.png?text=Premium+Quality+Products",
+    "https://via.placeholder.com/1920x1080.png?text=Exclusive+Deals"
+  ];
+
+  // Product categories
+  const categories = [
+    {
+      id: 1,
+      name: "Men's Collection",
+      image: "https://via.placeholder.com/400x300.png?text=Mens+Collection",
+      description: "Explore our premium selection of men's clothing, from casual wear to formal attire."
+    },
+    {
+      id: 2,
+      name: "Women's Collection",
+      image: "https://via.placeholder.com/400x300.png?text=Womens+Collection",
+      description: "Discover the latest trends in women's fashion with our curated collection."
+    },
+    {
+      id: 3,
+      name: "Accessories",
+      image: "https://via.placeholder.com/400x300.png?text=Accessories",
+      description: "Complete your look with our stylish accessories including bags, jewelry, and more."
+    },
+    {
+      id: 4,
+      name: "Footwear",
+      image: "https://via.placeholder.com/400x300.png?text=Footwear",
+      description: "Step out in style with our comfortable and trendy footwear collection."
+    }
+  ];
+
+  // Handle slideshow timing
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slideImages.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [slideImages.length]);
+
+  // Handle scroll animations
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = {
+        hero: document.getElementById('hero-section'),
+        shop: document.getElementById('shop-section'),
+        about: document.getElementById('about-section'),
+        contact: document.getElementById('contact-section')
+      };
+      
+      const isElementVisible = (element, offset = 100) => {
+        if (!element) return false;
+        const rect = element.getBoundingClientRect();
+        return rect.top <= window.innerHeight - offset;
+      };
+      
+      setIsVisible({
+        hero: isElementVisible(sections.hero),
+        shop: isElementVisible(sections.shop),
+        about: isElementVisible(sections.about),
+        contact: isElementVisible(sections.contact)
+      });
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    // Trigger once on initial load
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
   return (
-    <div className="home">
-      {/* Hero Section */}
-      <section className="hero">
+    <div className="home-container">
+      {/* HERO SECTION */}
+      <section id="hero-section" className={`hero-section ${isVisible.hero ? 'visible' : ''}`}>
+        <div className="slideshow-container">
+          {slideImages.map((image, index) => (
+            <div 
+              key={index} 
+              className={`slide ${index === currentSlide ? 'active' : ''}`}
+              style={{ backgroundImage: `url(${image})` }}
+            ></div>
+          ))}
+          <div className="slideshow-overlay"></div>
+        </div>
+        
         <div className="hero-content">
-          <h1>Handmade with Love, Just for You</h1>
-          <p>Unique handcrafted charms that tell your personal story</p>
-          <button className="cta-button">Shop Now</button>
+          <h1 className="hero-title">ShopHub</h1>
+          <p className="hero-slogan">Elevate Your Style, Embrace Your Uniqueness</p>
+          <Link to="/shop" className="hero-button">
+            Discover Our Collection <FaArrowRight className="btn-icon" />
+          </Link>
         </div>
       </section>
-
-      {/* Featured Collections */}
-      <section className="collections">
-        <h2>Our Collections</h2>
-        <div className="collection-grid">
-          <div className="collection-item">
-            <div className="collection-image miniatures"></div>
-            <h3>Miniature Worlds</h3>
-            <p>Tiny treasures with incredible detail</p>
-            <button className="secondary-button">Explore</button>
-          </div>
-          <div className="collection-item">
-            <div className="collection-image keychains"></div>
-            <h3>Artistic Keychains</h3>
-            <p>Carry your personality everywhere</p>
-            <button className="secondary-button">Explore</button>
-          </div>
-          <div className="collection-item">
-            <div className="collection-image jewelry"></div>
-            <h3>Charming Jewelry</h3>
-            <p>Wearable art that sparks conversation</p>
-            <button className="secondary-button">Explore</button>
-          </div>
-          <div className="collection-item">
-            <div className="collection-image custom"></div>
-            <h3>Custom Creations</h3>
-            <p>Your ideas brought to life</p>
-            <button className="secondary-button">Explore</button>
-          </div>
+      
+      {/* SHOP SECTION */}
+      <section id="shop-section" className={`shop-section ${isVisible.shop ? 'visible' : ''}`}>
+        <div className="section-header">
+          <h2>Our Collections</h2>
+          <p>Explore our carefully curated categories</p>
+        </div>
+        
+        <div className="categories-container">
+          {categories.map((category) => (
+            <div key={category.id} className="category-card">
+              <div className="category-image">
+                <img src={category.image} alt={category.name} />
+              </div>
+              <div className="category-content">
+                <h3>{category.name}</h3>
+                <p>{category.description}</p>
+                <Link to={`/shop/${category.id}`} className="category-button">
+                  Explore <FaArrowRight className="btn-icon" />
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
-
-
-
-      {/* Behind the Scenes */}
-      <section className="behind-scenes">
-        <h2>Crafted with Passion</h2>
-        <div className="crafting-story">
-          <div className="story-media">
-            <div className="video-placeholder"></div>
+      
+      {/* ABOUT US SECTION */}
+      <section id="about-section" className={`about-section ${isVisible.about ? 'visible' : ''}`}>
+        <div className="about-container">
+          <div className="about-image">
+            <img src="https://via.placeholder.com/600x400.png?text=Our+Story" alt="Our Story" />
           </div>
-          <div className="story-content">
-            <h3>Meet the Artist</h3>
-            <p>Every CharmCrafts piece begins in my small studio, where imagination meets craftsmanship. I've been creating miniature art for over 8 years, turning tiny spaces into worlds of wonder.</p>
-            <p>Each item is carefully handcrafted using sustainable materials and traditional techniques, ensuring that your charm is not just beautiful but also built to last.</p>
-            <button className="secondary-button">My Story</button>
-          </div>
-        </div>
-        <div className="process-gallery">
-          <div className="process-image process1"></div>
-          <div className="process-image process2"></div>
-          <div className="process-image process3"></div>
-        </div>
-      </section>
-
-      {/* Customer Reviews */}
-      <section className="testimonials">
-        <h2>What Our Customers Say</h2>
-        <div className="testimonial-container">
-          <div className="testimonial">
-            <div className="customer-image customer1"></div>
-            <div className="stars">★★★★★</div>
-            <p className="review-text">"I ordered a custom charm of my cat and it's PERFECT! The attention to detail is incredible. Everyone asks where I got it!"</p>
-            <p className="customer-name">- Sarah M.</p>
-          </div>
-          <div className="testimonial">
-            <div className="customer-image customer2"></div>
-            <div className="stars">★★★★★</div>
-            <p className="review-text">"The fairy garden keychain brings me joy every time I look at it. Such amazing craftsmanship in something so small!"</p>
-            <p className="customer-name">- James K.</p>
-          </div>
-          <div className="testimonial">
-            <div className="customer-image customer3"></div>
-            <div className="stars">★★★★★</div>
-            <p className="review-text">"These make the BEST gifts. I've ordered three different custom pieces and each one was more amazing than the last."</p>
-            <p className="customer-name">- Elena R.</p>
+          <div className="about-content">
+            <h2>Our Story</h2>
+            <p>Founded in 2020, ShopHub began with a simple mission: to provide high-quality, trendy products that help our customers express their unique style. What started as a small online store has grown into a trusted fashion destination for thousands of satisfied customers worldwide.</p>
+            
+            <div className="about-features">
+              <div className="feature">
+                <FaShoppingBag className="feature-icon" />
+                <h3>What We Offer</h3>
+                <p>We curate collections of clothing, accessories, and footwear that combine quality, style, and affordability.</p>
+              </div>
+              
+              <div className="feature">
+                <FaInfoCircle className="feature-icon" />
+                <h3>How To Order</h3>
+                <p>Browse our collections, add items to your cart, proceed to checkout, and have your order delivered straight to your doorstep.</p>
+              </div>
+            </div>
+            
+            <Link to="/about" className="about-button">
+              Learn More About Us
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* Newsletter */}
-      <section className="newsletter">
-        <h2>Join the CharmCrafts Family</h2>
-        <p>Subscribe for early access to new collections, exclusive discounts, and crafting tips!</p>
-        <form className="subscribe-form">
-          <input type="email" placeholder="Your email address" />
-          <button type="submit" className="cta-button">Subscribe</button>
-        </form>
-      </section>
-
-      {/* Instagram Feed */}
-      <section className="instagram-feed">
-        <h2>Follow Our Journey</h2>
-        <p className="instagram-handle">@CharmCraftsStudio</p>
-        <div className="instagram-grid">
-          <div className="instagram-post post1"></div>
-          <div className="instagram-post post2"></div>
-          <div className="instagram-post post3"></div>
-          <div className="instagram-post post4"></div>
-          <div className="instagram-post post5"></div>
-          <div className="instagram-post post6"></div>
+      
+      {/* CONTACT SECTION */}
+      <section id="contact-section" className={`contact-section ${isVisible.contact ? 'visible' : ''}`}>
+        <div className="section-header">
+          <h2>Get In Touch</h2>
+          <p>We'd love to hear from you</p>
         </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="faq">
-        <h2>Frequently Asked Questions</h2>
-        <div className="faq-item">
-          <h3>How long does shipping take?</h3>
-          <p>Ready-made items ship within 1-3 business days. Custom orders typically take 1-2 weeks before shipping.</p>
-        </div>
-        <div className="faq-item">
-          <h3>Are your products waterproof?</h3>
-          <p>Most items are sealed for protection, but we recommend removing jewelry before swimming or showering.</p>
-        </div>
-        <div className="faq-item">
-          <h3>Can I request a custom design?</h3>
-          <p>Absolutely! Contact us with your idea and we'll bring it to life.</p>
+        
+        <div className="contact-container">
+          <div className="contact-form">
+            <h3>Send Us Your Feedback</h3>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input type="text" id="name" placeholder="Your Name" required />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input type="email" id="email" placeholder="Your Email" required />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="message">Message</label>
+                <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+              </div>
+              
+              <button type="submit" className="submit-button">
+                Send Message <FaEnvelope className="btn-icon" />
+              </button>
+            </form>
+          </div>
+          
+          <div className="contact-info">
+            <h3>Connect With Us</h3>
+            <p>Follow us on social media for the latest updates, promotions, and style inspiration.</p>
+            
+            <div className="social-links">
+              <a href="https://www.instagram.com/speedmonn" target="_blank" rel="noopener noreferrer" className="social-link">
+                <FaInstagram className="social-icon" />
+                <span>@speedmonn</span>
+              </a>
+              
+              <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" className="social-link">
+                <FaWhatsapp className="social-icon" />
+                <span>WhatsApp Us</span>
+              </a>
+              
+              <a href="https://www.facebook.com/shophub" target="_blank" rel="noopener noreferrer" className="social-link">
+                <FaFacebook className="social-icon" />
+                <span>ShopHub Official</span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </div>

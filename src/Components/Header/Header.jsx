@@ -1,143 +1,114 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import './header.css';
+import { FaShoppingCart, FaUser, FaBars, FaTimes } from 'react-icons/fa';
+import { RiShoppingBag2Fill } from 'react-icons/ri';
 
 function Header() {
-  const [showShopDropdown, setShowShopDropdown] = useState(false);
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Toggle for demo
-  const [cartCount, setCartCount] = useState(2); // Example cart count
-  const [mobileMenuActive, setMobileMenuActive] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const toggleShopDropdown = (e) => {
-    e.stopPropagation();
-    setShowShopDropdown(!showShopDropdown);
-    if (showProfileDropdown) setShowProfileDropdown(false);
+  // Demo toggle login function (replace with your actual auth logic)
+  const toggleLogin = () => {
+    setIsLoggedIn(!isLoggedIn);
   };
 
-  const toggleProfileDropdown = (e) => {
-    e.stopPropagation();
-    setShowProfileDropdown(!showProfileDropdown);
-    if (showShopDropdown) setShowShopDropdown(false);
-  };
-
-  const toggleMobileMenu = () => {
-    setMobileMenuActive(!mobileMenuActive);
-    // Close dropdowns when toggling mobile menu
-    setShowShopDropdown(false);
-    setShowProfileDropdown(false);
-  };
-
-  // Close dropdowns when clicking outside
+  // Handle scroll for navbar effect
   useEffect(() => {
-    const closeDropdowns = (e) => {
-      if (!e.target.closest('.dropdown') && !e.target.closest('.profile-container')) {
-        setShowShopDropdown(false);
-        setShowProfileDropdown(false);
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
       }
     };
-    
-    document.addEventListener('click', closeDropdowns);
-    
+
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      document.removeEventListener('click', closeDropdowns);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  // Prevent scrolling when mobile menu is active
-  useEffect(() => {
-    if (mobileMenuActive) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [mobileMenuActive]);
+  // Close mobile menu when clicking a link
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="logo">
-          <h1>CharmCrafts</h1>
-          <span className="tagline">Handmade with love</span>
+    <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+      <div className="navbar-container">
+        <div className="logo-container">
+          <RiShoppingBag2Fill className="logo-icon" />
+          <span className="logo-text">ShopHub</span>
         </div>
 
-        <div className={`overlay ${mobileMenuActive ? 'active' : ''}`} onClick={toggleMobileMenu}></div>
-        
-        <nav className={`navbar ${mobileMenuActive ? 'active' : ''}`}>
+        {/* Desktop Navigation */}
+        <nav className="nav-links">
           <ul className="nav-menu">
-            <li className="nav-item">
-              <a href="/" className="nav-link">Home</a>
-            </li>
-            <li className="nav-item dropdown">
-              <button 
-                className="dropdown-toggle" 
-                onClick={toggleShopDropdown}
-              >
-                Shop
-              </button>
-              <ul className={`dropdown-menu ${showShopDropdown ? 'show' : ''}`}>
-                <li><a href="/shop/miniatures">Miniatures</a></li>
-                <li><a href="/shop/keychains">Keychains</a></li>
-                <li><a href="/shop/jewelry">Jewelry</a></li>
-                <li><a href="/shop/custom">Custom Orders</a></li>
-              </ul>
-            </li>
-            <li className="nav-item">
-              <a href="/about" className="nav-link">About Us</a>
-            </li>
-            <li className="nav-item">
-              <a href="/contact" className="nav-link">Contact</a>
-            </li>
-            {isLoggedIn && (
-              <li className="nav-item">
-                <a href="/orders" className="nav-link">My Orders</a>
-              </li>
-            )}
+            <li><Link to="/" className="nav-link">Home</Link></li>
+            <li><Link to="/shop" className="nav-link">Shop</Link></li>
+            <li><Link to="/about" className="nav-link">About Us</Link></li>
+            <li><Link to="/contact" className="nav-link">Contact</Link></li>
           </ul>
         </nav>
 
-        <div className="nav-actions">
-          <div className="profile-container">
-            <button 
-              className="profile-button" 
-              onClick={toggleProfileDropdown}
-            >
-              {isLoggedIn ? 'Profile' : 'Login'}
+        {/* User Controls */}
+        <div className="user-controls">
+          {isLoggedIn ? (
+            <>
+              <Link to="/profile" className="user-control-link">
+                <FaUser />
+                <span className="control-text">Profile</span>
+              </Link>
+              <Link to="/cart" className="user-control-link cart-link">
+                <FaShoppingCart />
+                <span className="control-text">Cart</span>
+                <span className="cart-count">3</span>
+              </Link>
+            </>
+          ) : (
+            <button className="login-button" onClick={toggleLogin}>
+              Login
             </button>
-            <div className={`profile-dropdown ${showProfileDropdown ? 'show' : ''}`}>
-              {isLoggedIn ? (
-                <>
-                  <a href="/profile">My Profile</a>
-                  <a href="/settings">Account Settings</a>
-                  <button onClick={() => setIsLoggedIn(false)}>Sign Out</button>
-                </>
-              ) : (
-                <>
-                  <Link to="/login">Sign In</Link>
-                  <Link to="/register">Create Account</Link>
-                </>
-              )}
-            </div>
-          </div>
-
-          <a href="/cart" className="cart-button">
-            Cart
-            <span className="cart-count">{cartCount}</span>
-          </a>
+          )}
         </div>
-        
+
+        {/* Mobile Menu Button */}
         <button 
-          className={`hamburger ${mobileMenuActive ? 'active' : ''}`} 
-          onClick={toggleMobileMenu}
+          className="menu-toggle" 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
         >
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
+        <ul className="mobile-nav-menu">
+          <li><Link to="/" className="mobile-nav-link" onClick={closeMenu}>Home</Link></li>
+          <li><Link to="/shop" className="mobile-nav-link" onClick={closeMenu}>Shop</Link></li>
+          <li><Link to="/about" className="mobile-nav-link" onClick={closeMenu}>About Us</Link></li>
+          <li><Link to="/contact" className="mobile-nav-link" onClick={closeMenu}>Contact</Link></li>
+          
+          {isLoggedIn ? (
+            <>
+              <li><Link to="/profile" className="mobile-nav-link" onClick={closeMenu}>Profile</Link></li>
+              <li>
+                <Link to="/cart" className="mobile-nav-link" onClick={closeMenu}>
+                  Cart <span className="mobile-cart-count">3</span>
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <button className="mobile-login-button" onClick={toggleLogin}>
+                Login
+              </button>
+            </li>
+          )}
+        </ul>
       </div>
     </header>
   );
