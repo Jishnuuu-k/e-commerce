@@ -95,9 +95,7 @@ const Sidebar = ({ onToggle }) => {
         </div>
         <div className={`submenu ${openMenu === "categoryManagement" ? "open" : ""}`}>
           <Link to="/add-category" className={isActive('/add-category') ? 'active' : ''}>Add Category</Link>
-          <Link to="/category/subcategory/add" className={isActive('/category/subcategory/add') ? 'active' : ''}>Add Subcategory</Link>
-          <Link to="/category/edit" className={isActive('/category/edit') ? 'active' : ''}>Edit & Delete Categories</Link>
-          <Link to="/category/view" className={isActive('/category/view') ? 'active' : ''}>View Categories</Link>
+          <Link to="/view-category" className={isActive('/view-category') ? 'active' : ''}>View Categories</Link>
         </div>
 
         {/* Order Management */}
@@ -111,9 +109,8 @@ const Sidebar = ({ onToggle }) => {
           {isOpen && <IoArrowRedoOutline className={`arrow-icon ${openMenu === "orderManagement" ? "rotated" : ""}`} />}
         </div>
         <div className={`submenu ${openMenu === "orderManagement" ? "open" : ""}`}>
-          <Link to="/order/view" className={isActive('/order/view') ? 'active' : ''}>View Orders</Link>
-          <Link to="/order/status" className={isActive('/order/status') ? 'active' : ''}>Update Order Status</Link>
-          <Link to="/order/filter" className={isActive('/order/filter') ? 'active' : ''}>Filter Orders</Link>
+          <Link to="/view-orders" className={isActive('/view-orders') ? 'active' : ''}>View Orders</Link>
+          <Link to="/view-order/status" className={isActive('/view-order/status') ? 'active' : ''}>Update Order Status</Link>
         </div>
 
         {/* Customer Management */}
@@ -127,8 +124,7 @@ const Sidebar = ({ onToggle }) => {
           {isOpen && <IoArrowRedoOutline className={`arrow-icon ${openMenu === "customerManagement" ? "rotated" : ""}`} />}
         </div>
         <div className={`submenu ${openMenu === "customerManagement" ? "open" : ""}`}>
-          <Link to="/customer/view" className={isActive('/customer/view') ? 'active' : ''}>View Customers</Link>
-          <Link to="/customer/search" className={isActive('/customer/search') ? 'active' : ''}>Search Customers</Link>
+          <Link to="/view/customers" className={isActive('/view/customers') ? 'active' : ''}>View Customers</Link>
         </div>
       </div>
     </div>

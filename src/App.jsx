@@ -8,6 +8,10 @@ import AdminDashboardd from './Pages/Admindashboardd'
 import AdminCategoryy from './Pages/AdminCategoryy'
 import Dashboardd from './Pages/Dashboardd'
 import Productvieww from './Pages/Productvieww'
+import Categoryvieww from './Pages/Categoryvieww'
+import Orderss from './Pages/Orderss'
+import Orderstatuss from './Pages/Orderstatuss'
+import Customerss from './Pages/Customerss'
 
 function App() {
   return (
@@ -22,6 +26,10 @@ function App() {
         <Route path="/add-products" element={ <AdminDashboardd/> } />
         <Route path="/view-products" element={ <Productvieww/> } />
         <Route path="/add-category" element={ <AdminCategoryy/> } />
+        <Route path="/view-category" element={ <Categoryvieww/> } />
+        <Route path="/view-orders" element={ <Orderss/> } />
+        <Route path="/view-order/status" element={ <Orderstatuss/> } />
+        <Route path="/view/customers" element={ <Customerss/> } />
       </Routes>
     </div>
   )
