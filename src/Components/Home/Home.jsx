@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaShoppingBag, FaInfoCircle, FaEnvelope, FaInstagram, FaWhatsapp, FaFacebook } from 'react-icons/fa';
 import "./Home.css";
+import dolls from "../../../public/Images/dolls.jpg"
+import gifts from "../../../public/Images/gifts.jpg"
+import story from "../../../public/Images/story.jpg"
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -14,35 +17,35 @@ function Home() {
 
   // Images for the slideshow
   const slideImages = [
-    "https://via.placeholder.com/1920x1080.png?text=Trendy+Fashion+Collection",
-    "https://via.placeholder.com/1920x1080.png?text=Premium+Quality+Products",
-    "https://via.placeholder.com/1920x1080.png?text=Exclusive+Deals"
+    "https://plus.unsplash.com/premium_photo-1661963826911-f369fa24c1a6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8QmlrZXN8ZW58MHx8MHx8fDA%3D",
+    "https://img.freepik.com/premium-photo/table-with-paint-cans-paint-brushes-it_853677-20123.jpg",
+    "https://i.etsystatic.com/7101060/r/il/db6ad9/1846954672/il_1080xN.1846954672_i8bw.jpg"
   ];
 
   // Product categories
   const categories = [
     {
       id: 1,
-      name: "Men's Collection",
-      image: "https://via.placeholder.com/400x300.png?text=Mens+Collection",
+      name: "Birthday Gifts",
+      image: gifts,
       description: "Explore our premium selection of men's clothing, from casual wear to formal attire."
     },
     {
       id: 2,
-      name: "Women's Collection",
-      image: "https://via.placeholder.com/400x300.png?text=Womens+Collection",
+      name: "Dolls",
+      image: dolls,
       description: "Discover the latest trends in women's fashion with our curated collection."
     },
     {
       id: 3,
       name: "Accessories",
-      image: "https://via.placeholder.com/400x300.png?text=Accessories",
+      image: gifts,
       description: "Complete your look with our stylish accessories including bags, jewelry, and more."
     },
     {
       id: 4,
       name: "Footwear",
-      image: "https://via.placeholder.com/400x300.png?text=Footwear",
+      image: gifts,
       description: "Step out in style with our comfortable and trendy footwear collection."
     }
   ];
@@ -51,7 +54,7 @@ function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slideImages.length);
-    }, 5000);
+    }, 3000);
     
     return () => clearInterval(interval);
   }, [slideImages.length]);
@@ -140,7 +143,7 @@ function Home() {
       <section id="about-section" className={`about-section ${isVisible.about ? 'visible' : ''}`}>
         <div className="about-container">
           <div className="about-image">
-            <img src="https://via.placeholder.com/600x400.png?text=Our+Story" alt="Our Story" />
+            <img src={story} alt="Our Story" />
           </div>
           <div className="about-content">
             <h2>Our Story</h2>
