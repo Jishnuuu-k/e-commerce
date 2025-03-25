@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Footer from '../Components/Footer/Footer'
 import AdminDashboard from '../Components/Admin/Admindashboard/Admindashboard'
 import Sidebar from '../Components/Admin/Sidebar/Sidebar'
 function AdminDashboardd() {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaShoppingBag, FaInfoCircle, FaEnvelope, FaInstagram, FaWhatsapp, FaFacebook } from 'react-icons/fa';
-import "./Home.css";
-import dolls from "../../../public/Images/dolls.jpg"
-import gifts from "../../../public/Images/gifts.jpg"
-import story from "../../../public/Images/story.jpg"
+import "./home.css";
+import dolls from "../../../../public/Images/dolls.jpg"
+import gifts from "../../../../public/Images/gifts.jpg"
+import story from "../../../../public/Images/story.jpg"
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);

@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from '../Components/Header/Header'
-import Registration from '../Components/Registration/Registration'
+import Header from '../Components/UserInterface/Header/Header'
+import Registration from '../Components/UserInterface/Registration/Registration'
 
 function Regitrationn() {
   return (
