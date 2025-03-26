@@ -12,6 +12,7 @@ import Categoryvieww from './Pages/Categoryvieww'
 import Orderss from './Pages/Orderss'
 import Orderstatuss from './Pages/Orderstatuss'
 import Customerss from './Pages/Customerss'
+import Adminloginn from './Pages/Adminloginn'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={ <Loginn/> } />
         <Route path="/profile" element={ <Profilee/> } />
 
+        <Route path="/admin/login" element={ <Adminloginn/> } />
         <Route path="/dashboard" element={ <Dashboardd/> } />
         <Route path="/add-products" element={ <AdminDashboardd/> } />
         <Route path="/view-products" element={ <Productvieww/> } />
