@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext  } from "react";
+import { AuthContext } from "../../../AppContext";
 import axios from "../../../../Axios/Axios"; // Import Axios instance
 import "./login.css";
 
@@ -7,6 +8,7 @@ function Login() {
   const [Password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const {login} = useContext(AuthContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,10 +25,8 @@ function Login() {
 
       console.log("Login Success:", response.data);
 
-      // Store token if needed
-      if (response.data.token) {
-        localStorage.setItem("authToken", response.data.token);
-      }
+      const {token, user } = response.data
+      login(token, user)
 
       setError("");
       alert("Login successful!");

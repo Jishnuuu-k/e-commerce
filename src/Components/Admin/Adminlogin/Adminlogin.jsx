@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Axios from "../../../../Axios/Axios"
+import { AuthContext } from '../../../AppContext';
 import './adminlogin.css';
 
 function AdminLogin() {
+  const {login} = useContext(AuthContext);
 
     const [formData, setformData] = useState({
         Username : "",
@@ -22,13 +24,11 @@ function AdminLogin() {
             console.log(formData)
             const response = await Axios.post("/admin/auth/adminlogin",formData)
             console.log(response.data)
+
             if(response.data.success){
                 alert("Login Successfull !")
-                const {token, user} = response.data
-
-                localStorage.setItem("adminToken", token)
-                localStorage.setItem("adminData", JSON.stringify(user))
-
+                const token = response.data
+                login(token)
 
             }
         } catch (error) {
