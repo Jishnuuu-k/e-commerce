@@ -13,6 +13,7 @@ import Orderss from './Pages/Orderss'
 import Orderstatuss from './Pages/Orderstatuss'
 import Customerss from './Pages/Customerss'
 import Adminloginn from './Pages/Adminloginn'
+import Cartt from './Pages/Cartt'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/register" element={ <Regitrationn/> } />
         <Route path="/login" element={ <Loginn/> } />
         <Route path="/profile" element={ <Profilee/> } />
+        <Route path="/cart" element={ <Cartt/> } />
 
         <Route path="/admin/login" element={ <Adminloginn/> } />
         <Route path="/dashboard" element={ <Dashboardd/> } />

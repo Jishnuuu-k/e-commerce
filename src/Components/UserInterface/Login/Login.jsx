@@ -1,14 +1,17 @@
-import React, { useState, useContext  } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { AuthContext } from "../../../AppContext";
-import axios from "../../../../Axios/Axios"; // Import Axios instance
+import axios from "../../../../Axios/Axios";
 import "./login.css";
 
 function Login() {
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate(); // Initialize navigate function
 
-  const {login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,11 +28,12 @@ function Login() {
 
       console.log("Login Success:", response.data);
 
-      const {token, user } = response.data
-      login(token, user)
+      const { token, user } = response.data;
+      login(token, user);
 
       setError("");
-      alert("Login successful!");
+      // Navigate to home page after successful login
+      navigate("/");
     } catch (err) {
       console.error("Login Error:", err.response?.data || err.message);
       setError(err.response?.data?.message || "Login failed. Try again.");
@@ -93,7 +97,7 @@ function Login() {
             Forgot Password?
           </a>
           <p>
-            Don't have an account? <a href="#register">Create Account</a>
+            Don't have an account? <a href="/register">Create Account</a>
           </p>
         </div>
       </div>

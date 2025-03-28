@@ -9,7 +9,7 @@ function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <h1>My Profile</h1>
+        <h1>Profi</h1>
         <div className="header-actions">
           <button className="edit-button">
             <i className="fas fa-edit"></i> Edit Profile
@@ -21,23 +21,6 @@ function Profile() {
       </div>
       
       <div className="profile-content">
-        <div className="profile-image-section">
-          <div className="image-container">
-            <img 
-              src={user?.profileImage || "https://via.placeholder.com/150"} 
-              alt="Profile" 
-              className="profile-image" 
-            />
-            <div className="image-overlay">
-              <button className="change-photo-btn">
-                <i className="fas fa-camera"></i> Change Photo
-              </button>
-            </div>
-          </div>
-          <h2 className="user-name">{user?.Fullname}</h2>
-          <p className="user-title">{user?.Username}</p>
-        </div>
-        
         <div className="profile-details">
           {user ? (
             <div className="details-grid">
@@ -48,6 +31,16 @@ function Profile() {
                 <div>
                   <h3>Full Name</h3>
                   <p>{user.Fullname}</p>
+                </div>
+              </div>
+
+              <div className="detail-card">
+                <div className="detail-icon">
+                  <i className="fas fa-user"></i>
+                </div>
+                <div>
+                  <h3>Username</h3>
+                  <p>{user.Username}</p>
                 </div>
               </div>
               
