@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../../AppContext";
+import Sidebar from "../Sidebar/Sidebar"
 import "./header.css";
 
 // Import a nice font (add this to your main CSS file)
 // @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Racing+Sans+One&display=swap');
 
 function Header() {
+
+  const [siderbar,  setSidebar] = useState(false)
+  const toggleSidebar = () => {
+    setSidebar(!siderbar)
+  }
+
   const { authToken, user,  } = useContext(AuthContext);
   const [showAuthDropdown, setShowAuthDropdown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -36,6 +43,9 @@ function Header() {
         <Link to="/products" className="nav-link">
           <i className="fas fa-motorcycle"></i> Products
         </Link>
+        <button onClick={toggleSidebar} className="bg-blue-500 px-4 py-2 rounded">
+          Categories
+        </button>
         
         {authToken ? (
           <>
@@ -70,6 +80,7 @@ function Header() {
           </div>
         )}
       </nav>
+      <Sidebar isOpen={siderbar} toggleSidebar={toggleSidebar} />
       
       {/* Mobile Hamburger Menu */}
       <button 
