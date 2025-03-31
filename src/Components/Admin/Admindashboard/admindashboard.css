@@ -1,144 +1,233 @@
-.add-product-container {
-  padding: 24px;
-  background-color: #f5f5f5;
-  min-height: 100vh;
+/* Admin Dashboard - Product Form */
+.admin-product-form {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  max-width: 100%;
+  margin: 0 auto;
+  color: #1a1a1a;
 }
 
-.add-product-content {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 24px;
+.admin-product-form h2 {
+  color: #2d3748;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-bottom: 2px solid #edf2f7;
+  padding-bottom: 0.75rem;
 }
 
-.add-product-content h2 {
-  color: #333;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #eee;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
+/* Form Elements */
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 1.75rem;
 }
 
-.span-2 {
-  grid-column: span 2;
-}
-
-label {
+.form-group label {
   display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: #444;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 0.95rem;
 }
 
-input, select, textarea {
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select {
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: border-color 0.3s;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-input:focus, select:focus, textarea:focus {
-  border-color: #4a90e2;
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
   outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
 }
 
-.error {
-  color: #e53935;
-  font-size: 12px;
-  margin-top: 4px;
-  display: block;
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
 }
 
-.form-actions {
-  margin-top: 24px;
+/* Form Layout */
+.form-row {
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
-.btn-cancel, .btn-submit {
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.1s;
+.form-row .form-group {
+  flex: 1;
+  margin-bottom: 0;
 }
 
-.btn-cancel {
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
-  color: #555;
-}
-
-.btn-submit {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-}
-
-.btn-cancel:hover {
-  background-color: #eee;
-}
-
-.btn-submit:hover {
-  background-color: #43a047;
-}
-
-.btn-cancel:active, .btn-submit:active {
-  transform: translateY(1px);
-}
-
-.btn-submit:disabled {
-  background-color: #a5d6a7;
-  cursor: not-allowed;
-}
-
-.message {
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.message.success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-}
-
-.message.error {
-  background-color: #ffebee;
-  color: #c62828;
-  border: 1px solid #ffcdd2;
-}
-
+/* Image Upload */
 .image-upload-container {
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  transition: all 0.2s;
+}
+
+.image-upload-container:hover {
+  border-color: #a0aec0;
+}
+
+.image-upload-container input[type="file"] {
+  display: none;
+}
+
+.upload-label {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
   align-items: center;
+  cursor: pointer;
+  color: #718096;
+}
+
+.upload-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #4299e1;
+}
+
+.image-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
 .image-preview {
-  max-width: 100px;
-  max-height: 100px;
-  overflow: hidden;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s;
 }
 
-.image-preview img {
+.image-preview:hover {
+  transform: scale(1.05);
+}
+
+/* Buttons */
+.submit-btn {
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  margin-top: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.submit-btn:hover {
+  background-color: #3182ce;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.submit-btn:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Status Messages */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+
+.alert.error {
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border-left: 4px solid #e53e3e;
+}
+
+.alert.success {
+  background-color: #f0fff4;
+  color: #38a169;
+  border-left: 4px solid #38a169;
+}
+
+.alert-icon {
+  margin-right: 0.75rem;
+  font-size: 1.2rem;
+}
+
+/* Loading States */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: #718096;
+}
+
+.spinner {
+  border: 3px solid rgba(66, 153, 225, 0.1);
+  border-radius: 50%;
+  border-top: 3px solid #4299e1;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin-right: 0.75rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .admin-product-form {
+    padding: 1rem;
+  }
+  
+  .admin-product-form h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Select Dropdown Styling */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+/* Disabled State */
+.form-group select:disabled {
+  background-color: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
 }

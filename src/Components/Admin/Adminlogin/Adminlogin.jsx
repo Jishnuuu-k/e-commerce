@@ -1,41 +1,52 @@
 import React, { useContext, useState } from 'react';
 import Axios from "../../../../Axios/Axios"
 import { AuthContext } from '../../../AppContext';
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import './adminlogin.css';
 
 function AdminLogin() {
-  const {login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate(); // Initialize useNavigate
 
-    const [formData, setformData] = useState({
-        Username : "",
-        Password : ""
-    })
+  const [formData, setformData] = useState({
+    Username: "",
+    Password: ""
+  });
 
-    const handleChange = (e) => {
-        setformData({
-            ...formData,
-            [e.target.name] : e.target.value,
-        })
-    }
+  const handleChange = (e) => {
+    setformData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-            console.log(formData)
-            const response = await Axios.post("/admin/auth/adminlogin",formData)
-            console.log(response.data)
-
-            if(response.data.success){
-                alert("Login Successfull !")
-                const token = response.data
-                login(token)
-
-            }
-        } catch (error) {
-            console.log(error)
-            alert("Error occured in login !")
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(formData);
+      const response = await Axios.post("/admin/auth/adminlogin", formData);
+      console.log(response.data);
+  
+      if (response.data.success) {
+        alert("Login Successful!");
+        const token = response.data.token;
+        const userData = response.data.user;
+  
+        // Ensure userData has a "role" property
+        if (userData.role !== "admin") {
+          alert("Access Denied! You are not an admin.");
+          return;
         }
+  
+        login(token, userData);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Error occurred during login!");
     }
+  };
+  
 
   return (
     <div className="login-container">
