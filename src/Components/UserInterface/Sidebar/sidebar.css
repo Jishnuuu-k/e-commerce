@@ -1,5 +1,4 @@
-/* Sidebar */
-.sidebar {
+.user-sidebar {
   position: fixed;
   top: 0;
   left: 0;
@@ -14,13 +13,12 @@
   color: black;
 }
 
-.sidebar.open {
+.user-sidebar.open {
   transform: translateX(0);
-  margin-left: -250px;
+
 }
 
-/* Sidebar Header */
-.sidebar-header {
+.user-sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,7 +27,7 @@
   color: white;
 }
 
-.close-btn {
+.user-close-btn {
   background: transparent;
   border: none;
   color: white;
@@ -37,20 +35,18 @@
   cursor: pointer;
 }
 
-/* Sidebar Menu */
-.sidebar-menu {
+.user-sidebar-menu {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.category-item {
+.user-category-item {
   border-bottom: 1px solid #ddd;
   padding: 10px;
 }
 
-/* Main Category */
-.category-header {
+.user-category-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,33 +55,31 @@
   font-weight: bold;
 }
 
-.category-header:hover {
+.user-category-header:hover {
   background: #f4f4f4;
 }
 
-/* Subcategory Menu */
-.subcategory-menu {
+.user-subcategory-menu {
   list-style: none;
   padding-left: 20px;
   margin-top: 5px;
 }
 
-.subcategory-item {
+.user-subcategory-item {
   padding: 5px 0;
 }
 
-.subcategory-item a {
+.user-subcategory-item a {
   text-decoration: none;
   color: black;
   display: block;
 }
 
-.subcategory-item a:hover {
+.user-subcategory-item a:hover {
   background: #f4f4f4;
 }
 
-/* Overlay */
-.overlay {
+.user-overlay {
   position: fixed;
   top: 0;
   left: 0;

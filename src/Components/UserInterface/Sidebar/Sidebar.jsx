@@ -6,14 +6,14 @@ import "./sidebar.css";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const [categories, setCategories] = useState([]);
-  const [expandedCategory, setExpandedCategory] = useState(null); // Track which category is expanded
+  const [expandedCategory, setExpandedCategory] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get("/Users/all/categories");
-        setCategories(response.data); // Assuming response.data is an array of categories
-        console.log(response.data)
+        setCategories(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -24,39 +24,35 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     }
   }, [isOpen]);
 
-  // Toggle subcategory visibility
   const toggleSubcategories = (categoryId) => {
     setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
   };
 
   return (
     <>
-      {/* Overlay to close sidebar when clicking outside */}
-      {isOpen && <div className="overlay" onClick={toggleSidebar}></div>}
+      {isOpen && <div className="user-overlay" onClick={toggleSidebar}></div>}
 
-      <div className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        <div className="sidebar-header">
+      <div className={`user-sidebar ${isOpen ? "open" : "closed"}`}>
+        <div className="user-sidebar-header">
           <h2>Categories</h2>
-          <button className="close-btn" onClick={toggleSidebar}>
+          <button className="user-close-btn" onClick={toggleSidebar}>
             <FaTimes />
           </button>
         </div>
 
-        <ul className="sidebar-menu">
+        <ul className="user-sidebar-menu">
           {categories.length > 0 ? (
             categories.map((category) => (
-              <li key={category._id} className="category-item">
-                {/* Main Category */}
-                <div className="category-header" onClick={() => toggleSubcategories(category._id)}>
+              <li key={category._id} className="user-category-item">
+                <div className="user-category-header" onClick={() => toggleSubcategories(category._id)}>
                   <span>{category.categoryName}</span>
                   {expandedCategory === category._id ? <FaChevronUp /> : <FaChevronDown />}
                 </div>
 
-                {/* Subcategories - Show when expanded */}
                 {expandedCategory === category._id && (
-                  <ul className="subcategory-menu">
+                  <ul className="user-subcategory-menu">
                     {category.subcategories.map((sub) => (
-                      <li key={sub._id} className="subcategory-item">
+                      <li key={sub._id} className="user-subcategory-item">
                         <Link to={`/category/${sub.subCategoryName}`} onClick={toggleSidebar}>
                           {sub.subCategoryName}
                         </Link>
@@ -67,12 +63,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               </li>
             ))
           ) : (
-            <li className="no-data">No categories found</li>
+            <li className="user-no-data">No categories found</li>
           )}
         </ul>
       </div>
     </>
   );
 };
+
 
 export default Sidebar;
