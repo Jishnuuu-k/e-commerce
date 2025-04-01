@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext  } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBars, FaUsers } from "react-icons/fa";
 import { BsBoxSeam } from "react-icons/bs";
 import { TbCategory, TbReportAnalytics } from "react-icons/tb";
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingCart, FiLogOut  } from "react-icons/fi";
 import { SiCoffeescript } from "react-icons/si";
 import { IoArrowRedoOutline } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
-
+import { AuthContext } from "../../../AppContext";
 import "./sidebar.css";
 
 const Sidebar = ({ onToggle }) => {
   const location = useLocation();
+  const { logout } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(true);
   const [openMenu, setOpenMenu] = useState(null);
 
@@ -125,6 +126,10 @@ const Sidebar = ({ onToggle }) => {
         </div>
         <div className={`submenu ${openMenu === "customerManagement" ? "open" : ""}`}>
           <Link to="/view/customers" className={isActive('/view/customers') ? 'active' : ''}>View Customers</Link>
+        </div>
+        <div className="logout-btn" onClick={logout}>
+          <FiLogOut className="icon" />
+          <span>Logout</span>
         </div>
       </div>
     </div>
