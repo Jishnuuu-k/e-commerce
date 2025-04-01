@@ -34,7 +34,6 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    navigate("/admin/login"); // Redirect to admin login after logout
   };
 
   return (
