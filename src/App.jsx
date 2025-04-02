@@ -15,6 +15,7 @@ import Customerss from "./Pages/Customerss";
 import Adminloginn from "./Pages/Adminloginn";
 import Cartt from "./Pages/Cartt";
 import AdminRoute from "./AdminRoute"; // Import AdminRoute
+import Productss from "./Pages/Productss";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Homee />} />
         <Route path="/register" element={<Regitrationn />} />
         <Route path="/login" element={<Loginn />} />
+        <Route path="/products" element={<Productss />} />
         <Route path="/profile" element={<Profilee />} />
         <Route path="/cart" element={<Cartt />} />
 
