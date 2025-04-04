@@ -9,7 +9,7 @@ function Profile() {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <h1>Profi</h1>
+        <h1>P R O F I L E</h1>
         <div className="header-actions">
           <button className="edit-button">
             <i className="fas fa-edit"></i> Edit Profile

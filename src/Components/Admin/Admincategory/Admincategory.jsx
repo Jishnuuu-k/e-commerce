@@ -3,10 +3,10 @@ import axios from '../../../../Axios/Axios'; // Import axios instance
 import './admincategory.css'; // Import CSS for styling
 
 function AdminCategory({ sidebarWidth }) {
-  const [categories, setCategories] = useState([]); // State to store categories
-  const [name, setName] = useState(''); // State for new category name
-  const [subcategoryName, setSubcategoryName] = useState(''); // State for new subcategory name
-  const [selectedCategory, setSelectedCategory] = useState(''); // State for selected category
+  const [categories, setCategories] = useState([]); 
+  const [name, setName] = useState('');
+  const [subcategoryName, setSubcategoryName] = useState(''); 
+  const [selectedCategory, setSelectedCategory] = useState(''); 
 
   // Dynamic styles for main container based on sidebar width
   const mainStyle = {
