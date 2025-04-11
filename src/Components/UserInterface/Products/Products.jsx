@@ -4,15 +4,14 @@ import './product.css';
 
 function Products({ sidebarWidth }) {
   const [categories, setCategories] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [groupedProducts, setGroupedProducts] = useState([]);
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get("/Users/all/categories");
         setCategories(response.data.response);
-        groupProductsBySubcategory(response.data.response);
+        console.log(response.data.response);
       } catch (error) {
         console.log(error);
       }
@@ -20,117 +19,84 @@ function Products({ sidebarWidth }) {
     fetchCategories();
   }, []);
 
-  useEffect(() => {
-    if (searchTerm === '') {
-      groupProductsBySubcategory(categories);
-    } else {
-      const filtered = categories.map(category => ({
-        ...category,
-        subcategories: category.subcategories.map(subcategory => ({
-          ...subcategory,
-          products: subcategory.products.filter(product =>
-            product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.description.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-        })).filter(subcategory => subcategory.products.length > 0)
-      })).filter(category => category.subcategories.length > 0);
-      
-      setGroupedProducts(filtered);
-    }
-  }, [searchTerm, categories]);
+  const handleQuantityChange = (productId, value) => {
+    setQuantities((prev) => ({ ...prev, [productId]: parseInt(value) }));
+  };
 
-  const groupProductsBySubcategory = (categoriesData) => {
-    setGroupedProducts(categoriesData.filter(cat => cat.subcategories.some(sub => sub.products.length > 0)));
+  const handleSubmit = async (product, actionType) => {
+    try {
+      const quantity = quantities[product._id] || 1;
+      const response = await axios.post("/Users/purchase", {
+        product,
+        actionType,
+        quantity,
+      });
+      
+      const total = response.data.Total;
+      console.log("Purchase successful. Total amount:", total);
+      
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const mainStyle = {
     marginLeft: sidebarWidth ? `${sidebarWidth}px` : '0',
     width: sidebarWidth ? `calc(100% - ${sidebarWidth}px)` : '100%',
     transition: 'margin-left 0.3s ease-in-out, width 0.3s ease-in-out',
-    padding: '20px'
-  };
-
-  const handleAddToCart = (product) => {
-    console.log("Added to cart:", product);
-  };
-
-  const handleBuyNow = (product) => {
-    console.log("Buy now:", product);
+    padding: '20px',
   };
 
   return (
     <div className="product-view" style={mainStyle}>
-      <div className="product-search-container">
-        <input
-          type="text"
-          placeholder="Search products..."
-          className="product-search-input"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-
-      {groupedProducts.length > 0 ? (
-        <div className="category-container">
-          {groupedProducts.map(category => (
-            <div key={category._id} className="category-section">
-              <h2 className="category-title">{category.name}</h2>
-              <p className="category-description">{category.description}</p>
-              
-              {category.subcategories.map(subcategory => (
-                <div key={subcategory._id} className="subcategory-section">
-                  <h3 className="subcategory-title">{subcategory.name}</h3>
-                  <p className="subcategory-description">{subcategory.description}</p>
-                  
-                  <div className="product-grid">
-                    {subcategory.products.map(product => (
-                      <div key={product._id} className="product-card">
-                        <div className="product-image-container">
-                          {product.images.length > 0 && (
-                            <img 
-                              src={product.images[0].url} 
-                              alt={product.name} 
-                              className="product-image"
-                            />
-                          )}
-                        </div>
-                        <div className="product-info">
-                          <h3 className="product-name">{product.name}</h3>
-                          <p className="product-description">{product.description}</p>
-                          <p className="product-price">₹{product.price}</p>
-                          <p className="product-stock">
-                            {product.stock > 0 ? `In Stock (${product.stock})` : 'Out of Stock'}
-                          </p>
-                        </div>
-                        <div className="product-actions">
-                          <button 
-                            className="buy-now-btn"
-                            onClick={() => handleBuyNow(product)}
-                          >
-                            Buy Now
-                          </button>
-                          <button 
-                            className="add-to-cart-btn"
-                            onClick={() => handleAddToCart(product)}
-                          >
-                            Add to Cart
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+      {categories.map((category) => (
+        <div key={category._id} className="category-section">
+          <h2>{category.name}</h2>
+          {category.subcategories.map((subcategory) => (
+            <div key={subcategory._id} className="subcategory-section">
+              <h3>{subcategory.name}</h3>
+              <div className="products-container">
+                {subcategory.products.map((product) => (
+                  <div key={product._id} className="product-card">
+                    <img
+                      src={product.images[0]?.url}
+                      alt={product.name}
+                      className="product-image"
+                    />
+                    <h4>{product.name}</h4>
+                    <p>₹{product.price}</p>
+                    <select
+                      value={quantities[product._id] || 1}
+                      onChange={(e) => handleQuantityChange(product._id, e.target.value)}
+                      className="quantity-select"
+                    >
+                      {[1, 2, 3, 4, 5].map((qty) => (
+                        <option key={qty} value={qty}>
+                          {qty}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="product-buttons">
+                      <button
+                        className="btn add-to-cart"
+                        onClick={() => handleSubmit(product, "addtocart")}
+                      >
+                        Add to Cart
+                      </button>
+                      <button
+                        className="btn buy-now"
+                        onClick={() => handleSubmit(product, "buynow")}
+                      >
+                        Buy Now
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           ))}
         </div>
-      ) : (
-        <div className="no-products-message">
-          {searchTerm ? 
-            'No products match your search.' : 
-            'No products available.'}
-        </div>
-      )}
+      ))}
     </div>
   );
 }

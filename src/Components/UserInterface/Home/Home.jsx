@@ -108,7 +108,7 @@ function Home() {
         <div className="hero-content">
           <h1 className="hero-title">ShopHub</h1>
           <p className="hero-slogan">Elevate Your Style, Embrace Your Uniqueness</p>
-          <Link to="/shop" className="hero-button">
+          <Link to="/products" className="hero-button">
             Discover Our Collection <FaArrowRight className="btn-icon" />
           </Link>
         </div>
