@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from "../../../../Axios/Axios";
+import { useContext } from "react";
+import { AuthContext } from "../../../AppContext";
 import './product.css';
 
 function Products({ sidebarWidth }) {
   const [categories, setCategories] = useState([]);
   const [quantities, setQuantities] = useState({});
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -30,6 +33,7 @@ function Products({ sidebarWidth }) {
         product,
         actionType,
         quantity,
+        userId: user
       });
       
       const total = response.data.Total;
