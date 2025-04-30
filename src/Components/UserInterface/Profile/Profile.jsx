@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../AppContext";
 import "./profile.css";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineMail, MdLocationPin  } from "react-icons/md";
+import { FaPhoneFlip } from "react-icons/fa6";
+import { TbGenderBigender } from "react-icons/tb";
 
 function Profile() {
   const { user, logout } = useContext(AuthContext);
@@ -74,7 +78,7 @@ function Profile() {
               <div className="details-grid">
                 <div className="detail-card" data-label="USERNAME">
                   <div className="detail-icon">
-                    <i className="fas fa-user"></i>
+                    <i className="fas fa-user"><FaRegUser/></i>
                   </div>
                   <div className="detail-content">
                     <h3>Username</h3>
@@ -84,7 +88,7 @@ function Profile() {
                 
                 <div className="detail-card" data-label="EMAIL">
                   <div className="detail-icon">
-                    <i className="fas fa-envelope"></i>
+                    <i className="fas fa-envelope"><MdOutlineMail/></i>
                   </div>
                   <div className="detail-content">
                     <h3>Email</h3>
@@ -94,7 +98,7 @@ function Profile() {
                 
                 <div className="detail-card" data-label="PHONE">
                   <div className="detail-icon">
-                    <i className="fas fa-phone"></i>
+                    <i className="fas fa-phone"><FaPhoneFlip/></i>
                   </div>
                   <div className="detail-content">
                     <h3>Phone Number</h3>
@@ -104,7 +108,7 @@ function Profile() {
                 
                 <div className="detail-card" data-label="GENDER">
                   <div className="detail-icon">
-                    <i className="fas fa-venus-mars"></i>
+                    <i className="fas fa-venus-mars"><TbGenderBigender/></i>
                   </div>
                   <div className="detail-content">
                     <h3>Gender</h3>
@@ -114,7 +118,7 @@ function Profile() {
                 
                 <div className="detail-card" data-label="LOCATION">
                   <div className="detail-icon">
-                    <i className="fas fa-map-marker-alt"></i>
+                    <i className="fas fa-map-marker-alt"><MdLocationPin /></i>
                   </div>
                   <div className="detail-content">
                     <h3>Address</h3>
@@ -134,7 +138,7 @@ function Profile() {
                 
                 <div className="detail-card" data-label="JOINED">
                   <div className="detail-icon">
-                    <i className="fas fa-calendar-alt"></i>
+                    <i className="fas fa-calendar-alt">a</i>
                   </div>
                   <div className="detail-content">
                     <h3>Member Since</h3>

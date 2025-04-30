@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../AppContext";
 import "./header.css";
-
+import { FaMotorcycle} from 'react-icons/fa';
 // We'll handle the Sidebar import differently
 import Sidebar from "../Sidebar/Sidebar";
 
@@ -48,7 +48,7 @@ function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   
-  // Close mobile menu when clicking a link
+
   const handleLinkClick = () => {
     setMobileMenuOpen(false);
   };
@@ -56,22 +56,15 @@ function Header() {
   return (
     <header className={`header ${scrolled ? 'header-scrolled' : ''}`}>
       <div className="header-container">
-        {/* Logo Section */}
         <div className="logo">
           <Link to="/" className="logo-link">
             <div className="logo-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.42,0-8-3.58-8-8 c0-4.42,3.58-8,8-8s8,3.58,8,8C20,16.42,16.42,20,12,20z"/>
-                <path d="M16.5,11c-0.83,0-1.5-0.67-1.5-1.5S15.67,8,16.5,8S18,8.67,18,9.5S17.33,11,16.5,11z"/>
-                <path d="M7.5,11C6.67,11,6,10.33,6,9.5S6.67,8,7.5,8S9,8.67,9,9.5S8.33,11,7.5,11z"/>
-                <path d="M12,17.5c-2.33,0-4.31-1.46-5.11-3.5h10.22C16.31,16.04,14.33,17.5,12,17.5z"/>
-              </svg>
+             <FaMotorcycle  className="logo-icon"/>
             </div>
             <h1 className="logo-text">MOTO<span>HUB</span></h1>
           </Link>
         </div>
         
-        {/* Mobile hamburger button */}
         <button 
           className={`hamburger ${mobileMenuOpen ? 'active' : ''}`} 
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -82,7 +75,6 @@ function Header() {
           <span></span>
         </button>
         
-        {/* Main navigation */}
         <nav className={`nav ${mobileMenuOpen ? 'nav-open' : ''}`}>
           <ul className="nav-list">
             <li className="nav-item">
@@ -91,7 +83,7 @@ function Header() {
               </Link>
             </li>
             
-            {/* Categories Dropdown */}
+          
             <li className="nav-item dropdown" ref={categoriesDropdownRef}>
               <button 
                 className="nav-link dropdown-toggle"
@@ -105,19 +97,19 @@ function Header() {
               
               {showCategoriesDropdown && (
                 <div className="dropdown-menu categories-dropdown">
-                  <Link to="/category/sport" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
+                  <Link to="/products" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
                     Sport Bikes
                   </Link>
-                  <Link to="/category/cruiser" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
+                  <Link to="/products" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
                     Cruisers
                   </Link>
-                  <Link to="/category/adventure" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
+                  <Link to="/products" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
                     Adventure
                   </Link>
-                  <Link to="/category/touring" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
+                  <Link to="/products" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
                     Touring
                   </Link>
-                  <Link to="/category/offroad" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
+                  <Link to="/products" className="dropdown-item" onClick={() => {handleLinkClick(); setShowCategoriesDropdown(false)}}>
                     Off-Road
                   </Link>
                 </div>
@@ -131,7 +123,7 @@ function Header() {
             </li>
             
             <li className="nav-item">
-              <Link to="/about" className="nav-link" onClick={handleLinkClick}>
+              <Link to="#about-section" className="nav-link" onClick={handleLinkClick}>
                 About
               </Link>
             </li>
