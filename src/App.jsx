@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Homee from "./Pages/Homee";
 import Regitrationn from "./Pages/Regitrationn";
 import Loginn from "./Pages/Loginn";
+import Myorderss from "./Pages/Myorderss";
 import Profilee from "./Pages/Profilee";
 import AdminDashboardd from "./Pages/Admindashboardd";
 import AdminCategoryy from "./Pages/AdminCategoryy";
@@ -26,6 +27,7 @@ function App() {
         <Route path="/register" element={<Regitrationn />} />
         <Route path="/login" element={<Loginn />} />
         <Route path="/products" element={<Productss />} />
+        <Route path="/myorders" element={<Myorderss />} />
         <Route path="/profile" element={<Profilee />} />
         <Route path="/cart" element={<Cartt />} />
 
