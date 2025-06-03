@@ -1,95 +1,134 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from '../../../../Axios/Axios';
+import { AuthContext } from '../../../AppContext';
 import './myorders.css';
 
 function Myorders() {
+  const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get('/myorders');
-        setOrders(response.data.Myorders);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching orders:', err);
-        setError('Failed to load your orders. Please try again later.');
-        setLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="myorders-container">
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <p>Loading your gear...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="myorders-container">
-        <div className="error-container">
-          <h3>Oops!</h3>
-          <p>{error}</p>
-          <button className="retry-btn" onClick={() => window.location.reload()}>
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
-  }
+  const handleLoadOrders = async () => {
+    try {
+      setLoading(true);
+     const response = await axios.post('/users/myorders', { Username: user.Username });
+      setOrders(response.data.Myorders); 
+      setLoading(false);
+    } catch (error) {
+      console.error('Error loading orders:', error);
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="myorders-container">
-      <div className="myorders-header">
-        <h1>YOUR <span className="accent">ORDERS</span></h1>
-        <div className="order-count">
-          <span className="count-number">{orders.length}</span>
-          <span className="count-text">ITEMS</span>
+    <div className="orders-page-container">
+      {/* Orders Header Section */}
+      <div className="orders-header-section">
+        <div className="header-content">
+          <h1 className="header-title">
+            <span className="title-primary">MY</span>
+            <span className="title-secondary">ORDERS</span>
+          </h1>
+          <div className="header-subtitle">
+            Track your premium purchases
+          </div>
+          <div className="header-glow"></div>
         </div>
       </div>
 
-      {orders.length === 0 ? (
-        <div className="no-orders">
-          <h2>No orders yet</h2>
-          <p>Time to gear up! Browse our collection and find something awesome.</p>
-          <button className="shop-now-btn">SHOP NOW</button>
+      {/* Load Orders Section */}
+      <div className="orders-load-section">
+        <button 
+          className={`orders-load-button ${loading ? 'loading' : ''}`} 
+          onClick={handleLoadOrders}
+          disabled={loading}
+        >
+          <span className="load-button-content">
+            {loading ? (
+              <>
+                <div className="orders-loading-spinner"></div>
+                <span>LOADING ORDERS...</span>
+              </>
+            ) : (
+              <>
+                <span>LOAD YOUR ORDERS</span>
+                <div className="load-button-arrow">→</div>
+              </>
+            )}
+          </span>
+          <div className="load-button-glow"></div>
+        </button>
+      </div>
+
+      {/* Orders Display Section */}
+      {orders.length > 0 && (
+        <div className="orders-display-section">
+          <div className="orders-section-header">
+            <h2 className="orders-section-title">Your Orders</h2>
+            <div className="orders-items-count">{orders.length} Items</div>
+          </div>
+          
+          <div className="orders-items-grid">
+            {orders.map((order, index) => (
+              <div key={order._id} className="order-item-card" style={{'--delay': `${index * 0.1}s`}}>
+                <div className="order-card-inner">
+                  <div className="order-image-section">
+                    <img 
+                      src={order.images[0]?.url || 'https://via.placeholder.com/300x200?text=No+Image'} 
+                      alt={order.name} 
+                      className="order-item-image" 
+                    />
+                    <div className="order-image-overlay">
+                      <div className="image-overlay-content">
+                        <span className="overlay-view-text"></span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="order-details-section">
+                    <h3 className="order-item-name">{order.name}</h3>
+                    
+                    <div className="order-item-meta">
+                      <div className="order-price-section">
+                        <span className="order-price-label">PRICE</span>
+                        <span className="order-price-value">₹{order.price?.toLocaleString()}</span>
+                      </div>
+                      
+                      <div className="order-quantity-section">
+                        <span className="order-quantity-label">QTY</span>
+                        <span className="order-quantity-value">{order.Itemquantity}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="order-card-actions">
+                      <button className="order-action-btn order-track-btn">
+                        <span>TRACK ORDER</span>
+                      </button>
+                      <button className="order-action-btn order-reorder-btn">
+                        <span>REORDER</span>
+                      </button>
+                    </div>
+                    
+                    <div className="order-status-indicator">
+                      <div className="order-status-dot"></div>
+                      <span className="order-status-text">DELIVERED</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="order-card-glow"></div>
+              </div>
+            ))}
+          </div>
         </div>
-      ) : (
-        <div className="orders-grid">
-          {orders.map((order) => (
-            <div className="order-card" key={order._id}>
-              <div className="order-image-container">
-                <img 
-                  src={order.images[0]?.url || '/placeholder.png'} 
-                  alt={order.name} 
-                  className="order-image" 
-                />
-                <div className="quantity-badge">{order.Itemquantity}</div>
-              </div>
-              <div className="order-info">
-                <h3 className="order-name">{order.name}</h3>
-                <div className="order-price-container">
-                  <span className="order-price">₹{order.price}</span>
-                  <button className="reorder-btn">REORDER</button>
-                </div>
-                <div className="order-actions">
-                  <button className="action-btn track-btn">TRACK</button>
-                  <button className="action-btn review-btn">REVIEW</button>
-                </div>
-              </div>
-            </div>
-          ))}
+      )}
+
+      {/* Empty Orders State */}
+      {orders.length === 0 && !loading && (
+        <div className="orders-empty-state">
+          <div className="empty-state-icon">📦</div>
+          <h3 className="empty-state-title">No Orders Found</h3>
+          <p className="empty-state-subtitle">Load your orders to see your purchase history</p>
         </div>
       )}
     </div>

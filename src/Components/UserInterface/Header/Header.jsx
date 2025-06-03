@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../AppContext";
 import "./header.css";
 import { FaMotorcycle} from 'react-icons/fa';
-// We'll handle the Sidebar import differently
-import Sidebar from "../Sidebar/Sidebar";
 
 function Header() {
   const { authToken, user } = useContext(AuthContext);
