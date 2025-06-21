@@ -26,7 +26,7 @@ function Myorders() {
       <div className="orders-header-section">
         <div className="header-content">
           <h1 className="header-title">
-            <span className="title-primary">MY</span>
+            <span className="title-primary">My</span>
             <span className="title-secondary">ORDERS</span>
           </h1>
           <div className="header-subtitle">
