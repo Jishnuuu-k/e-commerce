@@ -44,7 +44,7 @@ function Login() {
     <div className="login-container">
       <div className="login-form-wrapper">
         <div className="form-header">
-          <h2>Welcome Back</h2>
+          <h2>Welcome Back !</h2>
           <p>Sign in to your account</p>
         </div>
 
